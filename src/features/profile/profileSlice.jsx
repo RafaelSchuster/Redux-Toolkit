@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { profileAsync } from "./Async/profileAsync";
 
 const initialState = {
   name: "Bob",
   age: 23,
+  car: "Subaru",
 };
 
 export const profileSlice = createSlice({
@@ -20,6 +22,17 @@ export const profileSlice = createSlice({
     },
     changeName: (state, action) => {
       state.name = action.payload;
+    },
+  },
+  extraReducers: {
+    [profileAsync.pending]: (state) => {
+      state.car = "Volvo";
+    },
+    [profileAsync.fulfilled]: (state) => {
+      state.car = "BMW";
+    },
+    [profileAsync.rejected]: (state) => {
+      state.car = "Ford";
     },
   },
 });
